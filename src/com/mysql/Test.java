@@ -15,13 +15,11 @@ public class Test {
 
 		MysqlConnector c=new MysqlConnector();
 		Statement stmt= c.connectToMysql();
-		String name="abc";
-		String pass="abc";
-		String sql="select * from user where name='"+name+"'";
+		String nam="abctt";
+		String pas="abctt";
+		String sql="insert into user(name,pass,email) values('"+nam+"','"+pas+"','fanz@123.com')";
 		try {
-			ResultSet res= stmt.executeQuery(sql);
-			res.first();
-			System.out.println(res.getString("pass"));
+			stmt.execute(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -15,11 +15,16 @@ public class MysqlUtils {
 		
 	}
 	public boolean createUser(String name,String pass,String phone,String email){
+	
 		String sql="insert into user(name,pass,phone,email) "
-				+ "values('"+name+"','"+pass+"''"+phone+"''"+email+"')";
+				+ "values('"+name+"','"+pass+"','"+phone+"','"+email+"')";
+		System.out.println("即将创建用户\n"+"用户名："+name);
+		System.out.println("密码："+pass);
+		System.out.println("手机："+phone);
+		System.out.println("邮箱："+email);
 		try {
-			return stmt.execute(sql);
-			
+			stmt.execute(sql);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,8 +39,13 @@ public class MysqlUtils {
 			result.first();
 			if(pass.equals(result.getString("pass"))){
 				//用户名密码和传人密码一致
+				System.out.print("密码验证正确，密码为："+result.getString("pass"));
 				return true;
-			}else{return false;}
+			}else{
+				System.out.print("认证用户密码错误返回false,用户密码为：");
+				System.out.println(result.getString("pass"));
+				System.out.println("传人的密码为："+pass);
+				return false;}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
