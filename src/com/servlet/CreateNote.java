@@ -1,6 +1,7 @@
 package com.servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -11,21 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import com.Utils.Note;
 import com.mysql.MysqlUtils;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class CreateNote
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/CreateNote")
+public class CreateNote extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    MysqlUtils mysqlUtils=new MysqlUtils();
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public CreateNote() {
         super();
-        
         // TODO Auto-generated constructor stub
     }
 
@@ -34,17 +35,6 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String name=request.getParameter("name");
-		String pass=request.getParameter("pass");
-		boolean isChecked= mysqlUtils.checkUser(name, pass);
-		JSONObject jo=new JSONObject();
-		jo.put("isChecked", isChecked);
-		PrintWriter out=response.getWriter();
-	
-		//if(name.equals("fanz")&&pass.equals("1111"))
-		//{out.println("success");}else{out.println("fail");}
-	    out.println(jo.toString());
-		
 	}
 
 	/**
@@ -52,7 +42,15 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("bo");
+		InputStream is= request.getInputStream();
+		Note note=new Note(is);
+		System.out.println("×¼±¸²åÈënote");
+		boolean noteIsCreated=new MysqlUtils().createNote(note);
+		PrintWriter out=response.getWriter();
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("noteIsCreated", noteIsCreated);
+		out.print(jsonObject);
 	}
 
 }

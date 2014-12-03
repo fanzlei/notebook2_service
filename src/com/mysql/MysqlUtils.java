@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.Utils.Note;
+
 public class MysqlUtils {
 
 	Statement stmt;
@@ -39,19 +41,35 @@ public class MysqlUtils {
 			result.first();
 			if(pass.equals(result.getString("pass"))){
 				//用户名密码和传人密码一致
-				System.out.print("密码验证正确，密码为："+result.getString("pass"));
+				System.out.println("密码验证正确，密码为："+result.getString("pass"));
 				return true;
 			}else{
-				System.out.print("认证用户密码错误返回false,用户密码为：");
+				System.out.println("认证用户密码错误返回false,用户密码为：");
 				System.out.println(result.getString("pass"));
 				System.out.println("传人的密码为："+pass);
 				return false;}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.print("用户名不存在");
+			System.out.println("用户名不存在");
 			return false;
 		}
-			}
-
+    }
+  public boolean createNote(Note note){
+	  System.out.println("创建sql");
+		  String sql="insert into user_notebook(user_name,title,content,date,type) "
+			  		+ "values('"+note.getUser_name()+"','"+note.getTitle()+"',"
+			  				+ "'"+note.getContent()+"','"+note.getDate()+"','"+note.getType()+"')";
+			  try {
+				  System.out.println("开始执行execute(sql)");
+				stmt.execute(sql);
+				System.out.println("note已插入数据库");
+				return true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("执行插入笔记出错");
+				return false;
+			} 
+  }
 }

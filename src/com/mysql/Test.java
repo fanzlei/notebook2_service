@@ -1,8 +1,11 @@
 package com.mysql;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import net.sf.json.JSONObject;
 
 public class Test {
 
@@ -12,18 +15,12 @@ public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		MysqlConnector c=new MysqlConnector();
-		Statement stmt= c.connectToMysql();
-		String nam="abctt";
-		String pas="abctt";
-		String sql="insert into user(name,pass,email) values('"+nam+"','"+pas+"','fanz@123.com')";
-		try {
-			stmt.execute(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		JSONObject jsonObject=new JSONObject();
+			jsonObject.put("user_name", "fanz");
+			jsonObject.put("title", "我的笔记");
+			jsonObject.put("content","今天很开心");
+			jsonObject.put("date", "2014.12.03");
+			System.out.println(jsonObject.toString());
 	}
 
 }
