@@ -61,7 +61,7 @@ public class MysqlUtils {
 			  		+ "values('"+note.getUser_name()+"','"+note.getTitle()+"',"
 			  				+ "'"+note.getContent()+"','"+note.getDate()+"','"+note.getType()+"')";
 			  try {
-				  System.out.println("开始执行execute(sql)");
+				System.out.println("开始执行execute(sql)");
 				stmt.execute(sql);
 				System.out.println("note已插入数据库");
 				return true;

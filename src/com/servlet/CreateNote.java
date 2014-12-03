@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import net.sf.json.JSONObject;
 
@@ -48,9 +50,8 @@ public class CreateNote extends HttpServlet {
 		System.out.println("×¼±¸²åÈënote");
 		boolean noteIsCreated=new MysqlUtils().createNote(note);
 		PrintWriter out=response.getWriter();
-		JSONObject jsonObject=new JSONObject();
-		jsonObject.put("noteIsCreated", noteIsCreated);
-		out.print(jsonObject);
+	    
+		
 	}
 
 }

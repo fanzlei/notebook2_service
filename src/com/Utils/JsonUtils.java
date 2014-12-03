@@ -17,7 +17,7 @@ public class JsonUtils {
 			while((len=is.read(data))!=-1){
 				os.write(data,0,data.length);
 			}
-			return new String(os.toByteArray());
+			return new String(os.toByteArray(),"UTF8");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
