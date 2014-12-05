@@ -36,14 +36,12 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		String name=request.getParameter("name");
 		String pass=request.getParameter("pass");
-		boolean isChecked= mysqlUtils.checkUser(name, pass);
-		JSONObject jo=new JSONObject();
-		jo.put("isChecked", isChecked);
+		JSONObject jo=mysqlUtils.checkUser(name, pass);
 		PrintWriter out=response.getWriter();
-	
+		out.println(jo.toString());
 		//if(name.equals("fanz")&&pass.equals("1111"))
 		//{out.println("success");}else{out.println("fail");}
-	    out.println(jo.toString());
+	   
 		
 	}
 
