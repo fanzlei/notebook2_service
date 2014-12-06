@@ -14,9 +14,10 @@ public class Note {
 	String content;
 	String date;
 	String type;
-	JSONObject jsonObject;
+	
 	
 	public Note(InputStream is) {
+		JSONObject jsonObject;
 		// TODO Auto-generated constructor stub
 		String jsonString=new JsonUtils().inputStreamToString(is);
 		jsonObject=JSONObject.fromObject(jsonString);
@@ -49,5 +50,23 @@ public class Note {
 	
 	public String getType(){
 		return type;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 }

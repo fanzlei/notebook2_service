@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.Utils.Note;
@@ -110,6 +111,46 @@ public JSONObject changePassword(JSONObject jo) {
 	JSONObject jooo=new JSONObject();
 	jooo.put("isChangedPass", false);
 	return jooo;
+	
+}
+public JSONArray getAllNote(String name) {
+	// TODO Auto-generated method stub
+	String sql="select * from user_notebook where user_name='"+name+"'";
+	JSONObject jo=new JSONObject();
+	JSONArray ja=new JSONArray();
+	try {
+		result=stmt.executeQuery(sql);
+		while(result.next()){
+			jo.put("serverId", result.getString("id"));
+			jo.put("name", result.getString("user_name"));
+			jo.put("title", result.getString("title"));
+			jo.put("content", result.getString("content"));
+			jo.put("date", result.getString("date"));
+			jo.put("type", result.getString("type"));
+			ja.add(jo);
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return ja;
+}
+public void updateNote(String jsonString) {
+	// TODO Auto-generated method stub
+	JSONObject jo=JSONObject.fromObject(jsonString);
+	String name=jo.getString("name");
+	String title=jo.getString("title");
+	String content=jo.getString("content");
+	String date=jo.getString("date");
+	String type=jo.getString("date");
+	String sql="update user_notebook set user_name='"+name+"',"
+			+ "title='"+title+"',content='"+content+"',date='"+date+"',type='"+type+"'";
+	try {
+		stmt.executeUpdate(sql);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	
 }
 }

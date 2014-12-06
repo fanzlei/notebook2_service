@@ -15,12 +15,11 @@ public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		JSONObject jsonObject=new JSONObject();
-			jsonObject.put("user_name", "fanz");
-			jsonObject.put("title", "我的笔记");
-			jsonObject.put("content","今天很开心");
-			jsonObject.put("date", "2014.12.03");
-			System.out.println(jsonObject.toString());
+		JSONObject jo=new JSONObject();
+		jo.put("key", 1);
+		jo.put("key", 2);
+		jo.size();
+		System.out.println(jo);
 	}
 
 }
