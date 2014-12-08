@@ -22,7 +22,7 @@ public class Note {
 		String jsonString=new JsonUtils().inputStreamToString(is);
 		jsonObject=JSONObject.fromObject(jsonString);
 		user_name=jsonObject.getString("user_name");
-		pass=jsonObject.getString("pass");
+	//	pass=jsonObject.getString("pass");
 		title=jsonObject.getString("title");
 		content=jsonObject.getString("content");
 		date=jsonObject.getString("date");

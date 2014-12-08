@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,19 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.Utils.JsonUtils;
 import com.mysql.MysqlUtils;
 
 /**
- * Servlet implementation class Sync
+ * Servlet implementation class DeleteNote
  */
-@WebServlet("/Sync")
-public class Sync extends HttpServlet {
+@WebServlet("/DeleteNote")
+public class DeleteNote extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Sync() {
+    public DeleteNote() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,16 +44,20 @@ public class Sync extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String name= request.getParameter("name");
+		String jsonString=new JsonUtils().inputStreamToString(request.getInputStream());
+		JSONArray jsonArray=JSONArray.fromObject(jsonString);
+		MysqlUtils util=new MysqlUtils();
+		Iterator it=jsonArray.iterator();
+		while(it.hasNext()){
+			JSONObject jo=new JSONObject();
+			jo= (JSONObject) it.next();
+			String serverId=jo.getString("serverId");
+			util.deleteNote(serverId);
+			it.remove();
+		}
 		
-		//String name= (String) request.getAttribute("name");
-		System.out.println(name);
-		JSONArray jo= new MysqlUtils().getAllNote(name);
 		PrintWriter out=response.getWriter();
-		response.setCharacterEncoding("UTF-8");
-		System.out.println("jsonArrayString length="+jo.toString().length());
-		out.print(jo);
-		
+		out.print("hello");
 	}
 
 }

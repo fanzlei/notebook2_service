@@ -128,6 +128,7 @@ public JSONArray getAllNote(String name) {
 			jo.put("date", result.getString("date"));
 			jo.put("type", result.getString("type"));
 			ja.add(jo);
+			//System.out.println("»ñµÃnoteµÄdate£º"+result.getString("date"));
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -142,9 +143,11 @@ public void updateNote(String jsonString) {
 	String title=jo.getString("title");
 	String content=jo.getString("content");
 	String date=jo.getString("date");
-	String type=jo.getString("date");
+	String type=jo.getString("type");
+	String serverId=jo.getString("serverId");
 	String sql="update user_notebook set user_name='"+name+"',"
-			+ "title='"+title+"',content='"+content+"',date='"+date+"',type='"+type+"'";
+			+ "title='"+title+"',content='"+content+"',date='"+date+"',type='"+type+"' "
+					+ "where id='"+serverId+"'";
 	try {
 		stmt.executeUpdate(sql);
 	} catch (SQLException e) {
@@ -152,5 +155,15 @@ public void updateNote(String jsonString) {
 		e.printStackTrace();
 	}
 	
+}
+public void deleteNote(String serverId) {
+	// TODO Auto-generated method stub
+	try {
+		System.out.println("delete field where id="+serverId);
+		stmt.execute("delete from user_notebook where id='"+serverId+"'");
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
 }
