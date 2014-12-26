@@ -38,6 +38,7 @@ public class UpdateNote extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf8");
 		String jsonString=new JsonUtils().inputStreamToString(request.getInputStream());
 		new MysqlUtils().updateNote(jsonString);
 		

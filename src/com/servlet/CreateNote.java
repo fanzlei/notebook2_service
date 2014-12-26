@@ -45,10 +45,12 @@ public class CreateNote extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("bo");
+		response.setContentType("text/html;charset=utf8");
+		request.setCharacterEncoding("utf8");
 		InputStream is= request.getInputStream();
 		Note note=new Note(is);
-		System.out.println("×¼±¸²åÈënote");
 		int id=new MysqlUtils().createNote(note);
+		System.out.println("ä¿å­˜noteæˆåŠŸserverId="+id);
 		PrintWriter out=response.getWriter();
 	    out.print(id);
 		

@@ -15,11 +15,14 @@ public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		JSONObject jo=new JSONObject();
-		jo.put("key", 1);
-		jo.put("key", 2);
-		jo.size();
-		System.out.println(jo);
+		Statement stmt=new MysqlConnector().connectToMysql();
+		try {
+			stmt.execute("insert into user_notebook(user_name,title,content,date,type) "
+					+ "values('fanz','标题','内容','2012-12-12','1')");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

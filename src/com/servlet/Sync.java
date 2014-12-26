@@ -42,13 +42,14 @@ public class Sync extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html;charset=utf8");
+		request.setCharacterEncoding("utf8");
 		String name= request.getParameter("name");
 		
 		//String name= (String) request.getAttribute("name");
 		System.out.println(name);
 		JSONArray jo= new MysqlUtils().getAllNote(name);
 		PrintWriter out=response.getWriter();
-		response.setCharacterEncoding("UTF-8");
 		System.out.println("jsonArrayString length="+jo.toString().length());
 		out.print(jo);
 		

@@ -23,10 +23,10 @@ public class MysqlUtils {
 	
 		String sql="insert into user(name,pass,phone,email) "
 				+ "values('"+name+"','"+pass+"','"+phone+"','"+email+"')";
-		System.out.println("¼´½«´´½¨ÓÃ»§\n"+"ÓÃ»§Ãû£º"+name);
-		System.out.println("ÃÜÂë£º"+pass);
-		System.out.println("ÊÖ»ú£º"+phone);
-		System.out.println("ÓÊÏä£º"+email);
+		System.out.println("åˆ›å»ºuser\n"+"ç”¨æˆ·å="+name);
+		System.out.println("å¯†ç ="+pass);
+		System.out.println("æ‰‹æœº="+phone);
+		System.out.println("é‚®ç®±="+email);
 		try {
 			stmt.execute(sql);
 			return true;
@@ -36,46 +36,44 @@ public class MysqlUtils {
 			return false;
 		}
 	}
-	//µÇÂ½È·ÈÏÓÃ»§ÃûºÍÃÜÂëÊÇ·ñÆ¥Åä
+	//ï¿½ï¿½Â½È·ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Æ¥ï¿½ï¿½
 	public JSONObject checkUser(String name,String pass){
 		String sql="select * from user where name='"+name+"'";
 		try {
 			result = stmt.executeQuery(sql);
 			result.first();
 			if(pass.equals(result.getString("pass"))){
-				//ÓÃ»§ÃûÃÜÂëºÍ´«ÈËÃÜÂëÒ»ÖÂ
-				System.out.println("ÃÜÂëÑéÖ¤ÕıÈ·£¬ÃÜÂëÎª£º"+result.getString("pass"));
+				//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+				System.out.println("ç”¨æˆ·ç™»å½•ï¼Œå¯†ç ä¸ºï¼š"+result.getString("pass"));
 				JSONObject jo=new JSONObject();
 				jo.put("phone", result.getString("phone"));
 				jo.put("email", result.getString("email"));
 				jo.put("isChecked", true);
 				return jo;
 			}else{
-				System.out.println("ÈÏÖ¤ÓÃ»§ÃÜÂë´íÎó·µ»Øfalse,ÓÃ»§ÃÜÂëÎª£º");
+				System.out.print("ç”¨æˆ·å¯†ç é”™è¯¯ï¼Œç”¨æˆ·å¯†ç ä¸ºï¼š");
 				System.out.println(result.getString("pass"));
-				System.out.println("´«ÈËµÄÃÜÂëÎª£º"+pass);
+				System.out.println("ä¼ å…¥çš„å¯†ç ä¸ºï¼š"+pass);
 				JSONObject jo=new JSONObject();
 				jo.put("isChecked", false);
 				return jo;}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("ÓÃ»§Ãû²»´æÔÚ");
+			System.out.println("æœåŠ¡å™¨é”™è¯¯");
 			JSONObject jo=new JSONObject();
 			jo.put("isChecked", false);
 			return jo;
 		}
     }
   public int createNote(Note note){
-	  //±£´ænoteµ½Êı¾İ¿â£¬·µ»Ø¸ÃnoteµÄid
-	  System.out.println("´´½¨sql");
+	  //ï¿½ï¿½ï¿½ï¿½noteï¿½ï¿½ï¿½ï¿½İ¿â£¬ï¿½ï¿½ï¿½Ø¸ï¿½noteï¿½ï¿½id
 		  String sql="insert into user_notebook(user_name,title,content,date,type) "
 			  		+ "values('"+note.getUser_name()+"','"+note.getTitle()+"',"
 			  				+ "'"+note.getContent()+"','"+note.getDate()+"','"+note.getType()+"')";
 			  try {
-				System.out.println("¿ªÊ¼Ö´ĞĞexecute(sql)");
 				stmt.execute(sql);
-				System.out.println("noteÒÑ²åÈëÊı¾İ¿â");
+				System.out.println("æ’å…¥noteï¼Œæ ‡é¢˜="+note.getTitle()+"\nå†…å®¹="+note.getContent());
 				sql="select id from user_notebook where user_name='"+note.getUser_name()+"'";
 				result=stmt.executeQuery(sql);
 				result.last();
@@ -83,7 +81,6 @@ public class MysqlUtils {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("Ö´ĞĞ²åÈë±Ê¼Ç³ö´í");
 				return -1;
 			} 
   }
@@ -124,11 +121,12 @@ public JSONArray getAllNote(String name) {
 			jo.put("serverId", result.getString("id"));
 			jo.put("name", result.getString("user_name"));
 			jo.put("title", result.getString("title"));
+			System.out.println("è·å¾—noteï¼Œtitle="+result.getString("title"));
 			jo.put("content", result.getString("content"));
 			jo.put("date", result.getString("date"));
 			jo.put("type", result.getString("type"));
 			ja.add(jo);
-			//System.out.println("»ñµÃnoteµÄdate£º"+result.getString("date"));
+			//System.out.println("ï¿½ï¿½ï¿½noteï¿½ï¿½dateï¿½ï¿½"+result.getString("date"));
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block

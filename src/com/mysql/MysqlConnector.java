@@ -15,9 +15,9 @@ public class MysqlConnector {
 		// TODO Auto-generated constructor stub
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Êı¾İ¿âÇı¶¯¼ÓÔØ³É¹¦");
-			conn=DriverManager.getConnection("jdbc:mysql://192.168.0.108:3306/notebook","fanz","123456");
-			System.out.println("Êı¾İ¿âÁ¬½Ó³É¹¦");
+			System.out.println("æ•°æ®åº“é©±åŠ¨åŠ è½½æˆåŠŸ");
+			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/notebook?useUnicode=true&characterEncoding=utf8","root","");
+			System.out.println("æ•°æ®åº“è¿æ¥æˆåŠŸ");
 			stmt=conn.createStatement();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
